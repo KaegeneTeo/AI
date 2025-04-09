@@ -1,0 +1,44 @@
+<link rel="stylesheet" href="https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/themes/df-messenger-default.css">
+<script src="https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js"></script>
+<body>
+  <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; background-color: #f0f8f5;">
+    <h1 style="font-size: 6em; color: #103511; margin: 0;">RECYCLAID</h1>
+    <p style="font-size: 0.9em; color: #555; margin-top: 10px;">Click on the chat bubble at the bottom-right and type <code>/start</code> or <code>hi</code> to begin.</p>
+  </div>
+  <df-messenger
+    location="asia-southeast1"
+    project-id="group-4-451917"
+    agent-id="e9a929f9-038e-4e34-a274-800a2cb0ebdd"
+    language-code="en"
+    max-query-length="-1"
+    storage-option="none">
+    <df-messenger-chat-bubble chat-title="Recyclaid"></df-messenger-chat-bubble>
+  </df-messenger>
+</body>
+<style>
+  df-messenger {
+    z-index: 999;
+    position: fixed;
+    --df-messenger-font-color: #000;
+    --df-messenger-font-family: Google Sans;
+    --df-messenger-chat-background: #f3f6fc;
+    --df-messenger-message-user-background: #d3e3fd;
+    --df-messenger-message-bot-background: #fff;
+    bottom: 16px;
+    right: 16px;
+  }
+</style>
+<script>
+  window.onload = function () {
+    const messenger = document.querySelector('df-messenger');
+    if (messenger) {
+      messenger.removeAttribute('session-id'); // Reset session
+      const iframe = messenger.shadowRoot.querySelector('iframe');
+      if (iframe) {
+        iframe.onload = () => {
+          iframe.contentWindow.postMessage({ event: 'dfMessengerResetSession' }, '*'); // Clear content
+        };
+      }
+    }
+  };
+</script>
